@@ -25,6 +25,35 @@ Then results will be printed and saveed to [`genaibench_results.txt`](./genaiben
 - [ ] add blip2, instructblip, cogvlm, idefics2, llava, llavanext, minicpm, phi3-vision, vila, gpt4o, gemini results to leaderboard
 - [ ] phi3-vision is not supported yet, need to add it to the mllm tools.
 
+
+## Current Leaderboard 
+(Updated on 2024-06-30, copied from [`genaibench_results.txt`](./genaibench_results.txt))
+### Image Generation
+| Model  | Template | Accuracy |
+| :----: | :------: | :------: |
+| random | pairwise | 25.3602  |
+
+
+
+### Video Generation
+| Model  | Template | Accuracy |
+| :----: | :------: | :------: |
+| random | pairwise | 25.1637  |
+
+
+
+### Image Edition
+| Model  | Template | Accuracy |
+| :----: | :------: | :------: |
+| random | pairwise | 25.8977  |
+
+
+
+
+
+
+
+
 ## Citation
 ```bibtex
 @article{jiang2024genai,

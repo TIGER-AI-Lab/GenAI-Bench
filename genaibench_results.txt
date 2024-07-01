@@ -1,33 +1,21 @@
-Task: image_generation
-+------------------------------+
-|    Task: image_generation    |
-+--------+----------+----------+
+### Image Generation
 | Model  | Template | Accuracy |
-+--------+----------+----------+
+| :----: | :------: | :------: |
 | random | pairwise | 25.3602  |
-+--------+----------+----------+
 
 
 
-Task: video_generation
-+------------------------------+
-|    Task: video_generation    |
-+--------+----------+----------+
+### Video Generation
 | Model  | Template | Accuracy |
-+--------+----------+----------+
+| :----: | :------: | :------: |
 | random | pairwise | 25.1637  |
-+--------+----------+----------+
 
 
 
-Task: image_edition
-+------------------------------+
-|     Task: image_edition      |
-+--------+----------+----------+
+### Image Edition
 | Model  | Template | Accuracy |
-+--------+----------+----------+
+| :----: | :------: | :------: |
 | random | pairwise | 25.8977  |
-+--------+----------+----------+
 
 
 
