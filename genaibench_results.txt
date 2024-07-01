@@ -1,0 +1,33 @@
+Task: image_generation
++------------------------------+
+|    Task: image_generation    |
++--------+----------+----------+
+| Model  | Template | Accuracy |
++--------+----------+----------+
+| random | pairwise | 25.3602  |
++--------+----------+----------+
+
+
+
+Task: video_generation
++------------------------------+
+|    Task: video_generation    |
++--------+----------+----------+
+| Model  | Template | Accuracy |
++--------+----------+----------+
+| random | pairwise | 25.1637  |
++--------+----------+----------+
+
+
+
+Task: image_edition
++------------------------------+
+|     Task: image_edition      |
++--------+----------+----------+
+| Model  | Template | Accuracy |
++--------+----------+----------+
+| random | pairwise | 25.8977  |
++--------+----------+----------+
+
+
+

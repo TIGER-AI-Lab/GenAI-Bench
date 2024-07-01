@@ -1,0 +1,28 @@
+{
+    "image_generation": {
+        "input_keys": {
+            "left": ["prompt", "left_image"],
+            "right": ["prompt", "right_image"]
+        },
+        "input_types": ["str", "image"],
+        "infernece_configs": {}
+    },
+    "image_edition": {
+        "input_keys": {
+            "left": ["source_prompt", "target_prompt", "instruct_prompt", "source_image", "left_output_image"],
+            "right": ["source_prompt", "target_prompt", "instruct_prompt", "source_image", "right_output_image"]
+        },
+        "input_types": ["str", "str", "str", "image", "image"],
+        "infernece_configs": {}
+    },
+    "video_generation": {
+        "input_keys": {
+            "left": ["prompt", "left_video"],
+            "right": ["prompt", "right_video"]
+        },
+        "input_types": ["str", "video"],
+        "infernece_configs": {
+            "max_num_frames": 16
+        }
+    }
+}
