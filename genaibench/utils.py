@@ -1,8 +1,13 @@
 import requests
 import numpy as np
 import av
+import regex as re
+import shutil
 from pathlib import Path
 video_cache_dir = Path(__file__).parent / "video_cache"
+if not video_cache_dir.exists():
+    video_cache_dir.mkdir(exist_ok=True)
+from huggingface_hub import hf_hub_download
 
 def load_template(task, template):
     with open(Path(__file__).parent / "templates" / task / f"{template}.txt") as f:
@@ -31,12 +36,27 @@ def read_video_pyav(container, indices):
     return np.stack([x.to_ndarray(format="rgb24") for x in frames])
 
 def download_video(url, file_path):
-    r = requests.get(url, stream=True)
-    with open(file_path, 'wb') as f:
-        for chunk in r.iter_content(chunk_size=1024):
-            if chunk:
-                f.write(chunk)
-    return file_path
+    if "huggingface.co/datasets" in url:
+        # https://huggingface.co/datasets/tianleliphoebe/genai-arena-video-mp4/blob/main/dir/79e4e57959b4411e8d7532d655cbd6c6.mp4
+        # repo_id = tianleliphoebe/genai-arena-video-mp4
+        # revision = main
+        # file_path = 79e4e57959b4411e8d7532d655cbd6c6.mp4
+        # hf_hub_download(repo_id="tianleliphoebe/genai-arena-video-mp4", filename="79e4e57959b4411e8d7532d655cbd6c6.mp4", repo_type="dataset", local_dir="./video")
+        _url = url.split("datasets/")[1]
+        repo_id = _url.split("/blob")[0]
+        revision_filename = _url.split("/blob/")[1]
+        revision = revision_filename[:revision_filename.find("/")]
+        filename = revision_filename[revision_filename.find("/")+1:]
+        hub_file_path = hf_hub_download(repo_id=repo_id, filename=filename, repo_type="dataset", revision=revision)
+        shutil.copy(hub_file_path, file_path)
+        return file_path
+    else:
+        r = requests.get(url, stream=True)
+        with open(file_path, 'wb') as f:
+            for chunk in r.iter_content(chunk_size=1024):
+                if chunk:
+                    f.write(chunk)
+        return file_path
 
 
 
@@ -46,7 +66,7 @@ def process_video_into_frames(video_path, max_num_frames):
     else:
         video_path = Path(video_path)
     container = av.open(video_path)
-    num_frames = len(container.streams.video[0])
+    num_frames = container.streams.video[0].frames
     if num_frames > max_num_frames:
         indices = np.arange(0, num_frames, num_frames / max_num_frames).astype(int)
     else:

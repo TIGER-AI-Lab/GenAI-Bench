@@ -5,6 +5,7 @@ import numpy as np
 import av
 import regex as re
 import requests
+from PIL import Image
 from tqdm import tqdm
 from genaibench.mllm_tools import MLLM_Models
 from genaibench.utils import (
@@ -45,7 +46,7 @@ def run_example(model, example, input_keys, input_types, prompt_template, infere
                 "content": splitted_prompt[0]
             })
             frames = process_video_into_frames(example[key], inference_configs.get("max_num_frames", 16))
-            if model.support_video_input:
+            if hasattr(model, "support_video_input") and model.support_video_input:
                 model_inputs.append({
                     "type": "video",
                     "content": frames
@@ -54,7 +55,7 @@ def run_example(model, example, input_keys, input_types, prompt_template, infere
                 for frame in frames:
                     model_inputs.append({
                         "type": "image",
-                        "content": frame
+                        "content": Image.fromarray(frame).convert("RGB")
                     })
             prompt = splitted_prompt[1]
             
@@ -118,7 +119,7 @@ def run_pairwise_example(model, example, left_input_keys, right_input_keys, inpu
                 "content": multimodal_["content"]
             })
         elif multimodal_["type"] == "video":
-            if model.support_video_input:
+            if hasattr(model, "support_video_input") and model.support_video_input:
                 model_inputs.append({
                     "type": "video",
                     "content": multimodal_["content"]
@@ -127,7 +128,7 @@ def run_pairwise_example(model, example, left_input_keys, right_input_keys, inpu
                 for frame in multimodal_["content"]:
                     model_inputs.append({
                         "type": "image",
-                        "content": frame
+                        "content": Image.fromarray(frame).convert("RGB")
                     })
         else:
             raise ValueError(f"Type {multimodal_['type']} not supported.")
