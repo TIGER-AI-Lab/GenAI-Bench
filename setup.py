@@ -29,7 +29,9 @@ setup(
         "av",
         "decord",
         "mantis-vl",
-        "protobuf"
+        "protobuf",
+        "opencv-python",
+        "peft"
     ],
     extras_require={}
 )
