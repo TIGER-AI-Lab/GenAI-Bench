@@ -12,6 +12,11 @@ python inference.py --task "video_generation" --model_name "random"
 python inference.py --task "video_generation" --model_name "gpt4o"
 ```
 
+or run it through `inference.sh`:
+```bash
+./inference.sh <GPU_ID> <MODEL_NAME> [<TASK_ID>] # 0 is image generation, 1 is image edition, 2 is video generation 
+```
+
 - The default prompt template is `pairwise` for each tasks ([`image_generation`](./genaibench/templates/image_generation/pairwise.txt), [`image_edition`](./genaibench/templates/image_edition/pairwise.txt), [`video_generation`](./genaibench/templates/video_generation/pairwise.txt)), you can write your own prompt template and pass it to the `--template` argument.
 
 - Show existing results of the leaderboard
@@ -28,24 +33,17 @@ Then results will be printed and saveed to [`genaibench_results.txt`](./genaiben
 
 ## Current Leaderboard 
 (Updated on 2024-06-30, copied from [`genaibench_results.txt`](./genaibench_results.txt))
-### Image Generation
-| Model  | Template | Accuracy |
-| :----: | :------: | :------: |
-| random | pairwise | 25.3602  |
 
-
-
-### Video Generation
-| Model  | Template | Accuracy |
-| :----: | :------: | :------: |
-| random | pairwise | 25.1637  |
-
-
-
-### Image Edition
-| Model  | Template | Accuracy |
-| :----: | :------: | :------: |
-| random | pairwise | 25.8977  |
++----------+----------+---------------------------+------------------------+---------------------------+
+|  Model   | Template | Image Generation Accuracy | Image Editing Accuracy | Video Generation Accuracy |
++----------+----------+---------------------------+------------------------+---------------------------+
+| idefics2 | pairwise |          42.2478          |        27.3123         |            TBD            |
+|  blip2   | pairwise |          26.3401          |        26.0065         |            TBD            |
+|  random  | pairwise |          25.3602          |        25.8977         |          25.1637          |
+|  cogvlm  | pairwise |            TBD            |          0.0           |            TBD            |
+| kosmos2  | pairwise |            0.0            |          0.0           |            TBD            |
+| idefics1 | pairwise |           0.8069          |         5.6583         |            TBD            |
++----------+----------+---------------------------+------------------------+---------------------------+
 
 
 

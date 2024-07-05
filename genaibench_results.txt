@@ -1,21 +1,12 @@
-### Image Generation
-| Model  | Template | Accuracy |
-| :----: | :------: | :------: |
-| random | pairwise | 25.3602  |
-
-
-
-### Video Generation
-| Model  | Template | Accuracy |
-| :----: | :------: | :------: |
-| random | pairwise | 25.1637  |
-
-
-
-### Image Edition
-| Model  | Template | Accuracy |
-| :----: | :------: | :------: |
-| random | pairwise | 25.8977  |
+### Merged Results
+|  Model   | Template | Image Generation Accuracy | Image Editing Accuracy | Video Generation Accuracy |
+|:--------:|:--------:|:-------------------------:|:----------------------:|:-------------------------:|
+| idefics2 | pairwise |          42.2478          |        27.3123         |            TBD            |
+|  blip2   | pairwise |          26.3401          |        26.0065         |            TBD            |
+|  random  | pairwise |          25.3602          |        25.8977         |          25.1637          |
+|  cogvlm  | pairwise |            TBD            |          0.0           |            TBD            |
+| kosmos2  | pairwise |            0.0            |          0.0           |            TBD            |
+| idefics1 | pairwise |           0.8069          |         5.6583         |            TBD            |
 
 
 
