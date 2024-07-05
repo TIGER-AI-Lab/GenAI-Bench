@@ -31,7 +31,8 @@ setup(
         "mantis-vl",
         "protobuf",
         "opencv-python",
-        "peft"
+        "peft",
+        "einops",
     ],
     extras_require={}
 )
