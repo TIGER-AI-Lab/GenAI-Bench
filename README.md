@@ -32,18 +32,21 @@ Then results will be printed and saveed to [`genaibench_results.txt`](./genaiben
 
 
 ## Current Leaderboard 
-(Updated on 2024-06-30, copied from [`genaibench_results.txt`](./genaibench_results.txt))
+(Updated on 2024-07-05, copied from [`genaibench_results.txt`](./genaibench_results.txt))
 
-+----------+----------+---------------------------+------------------------+---------------------------+
-|  Model   | Template | Image Generation Accuracy | Image Editing Accuracy | Video Generation Accuracy |
-+----------+----------+---------------------------+------------------------+---------------------------+
-| idefics2 | pairwise |          42.2478          |        27.3123         |            TBD            |
-|  blip2   | pairwise |          26.3401          |        26.0065         |            TBD            |
-|  random  | pairwise |          25.3602          |        25.8977         |          25.1637          |
-|  cogvlm  | pairwise |            TBD            |          0.0           |            TBD            |
-| kosmos2  | pairwise |            0.0            |          0.0           |            TBD            |
-| idefics1 | pairwise |           0.8069          |         5.6583         |            TBD            |
-+----------+----------+---------------------------+------------------------+---------------------------+
++------------+----------+---------------------------+------------------------+---------------------------+
+|   Model    | Template | Image Generation Accuracy | Image Editing Accuracy | Video Generation Accuracy |
++------------+----------+---------------------------+------------------------+---------------------------+
+|  kosmos2   | pairwise |            0.0            |          0.0           |            0.0            |
+|  idefics2  | pairwise |          42.2478          |        27.3123         |            TBD            |
+|   cogvlm   | pairwise |            TBD            |          0.0           |            TBD            |
+| otterimage | pairwise |            0.0            |          0.0           |            0.0            |
+| ottervideo | pairwise |            0.0            |          0.0           |            0.0            |
+|   blip2    | pairwise |          26.3401          |        26.0065         |          16.9317          |
+|  idefics1  | pairwise |           0.8069          |         5.6583         |           0.1871          |
+|   qwenVL   | pairwise |          26.6282          |        14.9075         |            TBD            |
+|   random   | pairwise |          25.3602          |        25.8977         |          25.1637          |
++------------+----------+---------------------------+------------------------+---------------------------+
 
 
 

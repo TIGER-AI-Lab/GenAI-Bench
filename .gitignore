@@ -1,4 +1,5 @@
 # Byte-compiled / optimized / DLL files
+*.mp4
 *.ttf
 *.out
 __pycache__/
