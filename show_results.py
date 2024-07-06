@@ -77,11 +77,14 @@ def main_merged(results_dir="./results", save_file="genaibench_results.txt"):
         for result in all_results[task]:
             merged_results[result["model"]][result["template"]][task] = round(result["acc"] * 100, 4)
     
+    # Sort models, putting 'random' at the top
+    sorted_models = sorted(all_models, key=lambda x: (x != 'random', x))
+    
     # Create the merged table
     table = pt.PrettyTable()
     table.field_names = ["Model", "Template", "Image Generation Accuracy", "Image Editing Accuracy", "Video Generation Accuracy"]
     
-    for model in merged_results:
+    for model in sorted_models:
         for template in merged_results[model]:
             table.add_row([
                 model,

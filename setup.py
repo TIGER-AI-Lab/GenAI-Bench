@@ -33,6 +33,7 @@ setup(
         "opencv-python",
         "peft",
         "einops",
+        "matplotlib",
     ],
     extras_require={}
 )

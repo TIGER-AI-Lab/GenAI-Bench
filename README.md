@@ -32,21 +32,28 @@ Then results will be printed and saveed to [`genaibench_results.txt`](./genaiben
 
 
 ## Current Leaderboard 
-(Updated on 2024-07-05, copied from [`genaibench_results.txt`](./genaibench_results.txt))
+(Updated on 2024-07-06, copied from [`genaibench_results.txt`](./genaibench_results.txt))
 
-+------------+----------+---------------------------+------------------------+---------------------------+
-|   Model    | Template | Image Generation Accuracy | Image Editing Accuracy | Video Generation Accuracy |
-+------------+----------+---------------------------+------------------------+---------------------------+
-|  kosmos2   | pairwise |            0.0            |          0.0           |            0.0            |
-|  idefics2  | pairwise |          42.2478          |        27.3123         |            TBD            |
-|   cogvlm   | pairwise |            TBD            |          0.0           |            TBD            |
-| otterimage | pairwise |            0.0            |          0.0           |            0.0            |
-| ottervideo | pairwise |            0.0            |          0.0           |            0.0            |
-|   blip2    | pairwise |          26.3401          |        26.0065         |          16.9317          |
-|  idefics1  | pairwise |           0.8069          |         5.6583         |           0.1871          |
-|   qwenVL   | pairwise |          26.6282          |        14.9075         |            TBD            |
-|   random   | pairwise |          25.3602          |        25.8977         |          25.1637          |
-+------------+----------+---------------------------+------------------------+---------------------------+
++-------------------------+----------+---------------------------+------------------------+---------------------------+
+|          Model          | Template | Image Generation Accuracy | Image Editing Accuracy | Video Generation Accuracy |
++-------------------------+----------+---------------------------+------------------------+---------------------------+
+|          random         | pairwise |          25.3602          |        25.8977         |          25.1637          |
+|          blip2          | pairwise |          26.3401          |        26.0065         |          16.9317          |
+|          cogvlm         | pairwise |            TBD            |          0.0           |            TBD            |
+|         idefics1        | pairwise |           0.8069          |         5.6583         |           0.1871          |
+|         idefics2        | pairwise |          42.2478          |        27.3123         |           16.464          |
+|       instructblip      | pairwise |            TBD            |        19.8041         |           3.7418          |
+|         kosmos2         | pairwise |            0.0            |          0.0           |            0.0            |
+|          llava          | pairwise |          37.0029          |        26.1153         |          30.4022          |
+|        llavanext        | pairwise |          22.6513          |        25.3536         |          21.7025          |
+|    mantis-8b-idefics2   | pairwise |            0.0            |          0.0           |            0.0            |
+| mantis-8b-idefics2_8192 | pairwise |            0.0            |          0.0           |            0.0            |
+|      minicpm-V-2.5      | pairwise |          37.8098          |        25.2448         |            TBD            |
+|        otterimage       | pairwise |            0.0            |          0.0           |            0.0            |
+|        ottervideo       | pairwise |            0.0            |          0.0           |            0.0            |
+|          qwenVL         | pairwise |          26.6282          |        14.9075         |           2.1515          |
+|        videollava       | pairwise |          37.7522          |        26.6594         |            TBD            |
++-------------------------+----------+---------------------------+------------------------+---------------------------+
 
 
 

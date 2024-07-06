@@ -39,8 +39,8 @@ if [ -n "$TASK_ID" ]; then
     esac
     run_inference $TASK
 else
-    # If TASK_ID is not specified, run inference for all tasks
-    run_inference "image_generation"
-    run_inference "image_edition"
-    run_inference "video_generation"
+    # If TASK_ID is not specified, run inference for all tasks sequentially
+    for task in "image_generation" "image_edition" "video_generation"; do
+        run_inference $task
+    done
 fi
