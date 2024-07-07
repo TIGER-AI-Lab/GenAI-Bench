@@ -135,8 +135,10 @@ class Gemini():
         for image_link in image_links:
             if isinstance(image_link, str):
               image = save_image_from_url(image_link)
-            else:
+            elif isinstance(image_link, Image.Image):
               image = image_link
+            else:
+              raise ValueError("Unsupported input type. Must be a file path or PIL Image.")
             image = upload_to_gemini(image, mime_type="image/jpeg")
             images_prompt.append(image)
 
@@ -166,7 +168,26 @@ class Gemini():
 
 if __name__ == "__main__":
     model = Gemini()
-    prompt = model.prepare_prompt(['https://chromaica.github.io/Museum/ImagenHub_Text-Guided_IE/DiffEdit/sample_34_1.jpg', 'https://chromaica.github.io/Museum/ImagenHub_Text-Guided_IE/input/sample_34_1.jpg'], 'What is difference between two images?')
-    print("prompt : \n", prompt)
-    res = model.get_parsed_output(prompt)
-    print("result : \n", res)
+    # difference
+    difference_exs = [
+        {
+            "type": "image",
+            "content": "https://chromaica.github.io/Museum/ImagenHub_Text-Guided_IE/input/sample_34_1.jpg"
+        },
+        {
+            "type": "image",
+            "content": "https://chromaica.github.io/Museum/ImagenHub_Text-Guided_IE/input/sample_337180_3.jpg"
+        },
+        {
+            "type": "text",
+            "content": "What is difference between two images?"
+        },
+    ]
+    # print("### 0 shot")
+    # print(model(zero_shot_exs))
+    # print("### 1 shot")
+    # print(model(one_shot_exs))
+    # print("### 2 shot")
+    # print(model(two_shot_exs))
+    print("### difference")
+    print(model(difference_exs))
