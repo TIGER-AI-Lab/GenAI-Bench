@@ -1,4 +1,4 @@
-MLLM_LIST = ["blip2", "instructblip", "llava", "openflamingo", "fuyu", "kosmos2", "qwenVL", "cogvlm", "mfuyu", "mllava", "idefics2", "idefics1", "emu2", "otterimage", "ottervideo", "vila", "gpt4v", "gpt4o", "mantis", "videollava", "minicpmv"]
+MLLM_LIST = ["blip2", "instructblip", "llava", "openflamingo", "fuyu", "kosmos2", "qwenVL", "cogvlm", "mfuyu", "mllava", "idefics2", "idefics1", "emu2", "otterimage", "ottervideo", "vila", "gpt4v", "gpt4o", "gemini", "mantis", "videollava", "minicpmv"]
 from functools import partial
 
 def get_mfuyu(model_name: str):
@@ -129,6 +129,9 @@ def MLLM_Models(model_name:str):
     elif model_name.lower().startswith("gpt4"):
         from .gpt4v_eval import GPT4V
         return GPT4V
+    elif model_name.lower().startswith("gemini"):
+        from .gemini_eval import Gemini
+        return Gemini
     elif model_name.lower().startswith("mantis"):
         if "fuyu" in model_name.lower():
             return partial(get_mfuyu, model_name=model_name)
