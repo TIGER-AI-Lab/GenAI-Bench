@@ -15,7 +15,7 @@ from mantis.easy_openai import openai_completions
 class GPT4V():
     support_multi_image = True
     merged_image_files = []
-    def __init__(self, model_path:str="gpt-4v") -> None:
+    def __init__(self, model_path:str="gpt-4-0613") -> None:
         """Llava model wrapper
 
         Args:
@@ -101,6 +101,12 @@ class GPT4V():
             if os.path.exists(image_file):
                 os.remove(image_file)
 
+
+class GPT4O(GPT4V):
+    support_multi_image = True
+    merged_image_files = []
+    def __init__(self, model_path:str="gpt-4o-2024-05-13") -> None:
+        super().__init__(model_path=model_path)
 
 if __name__ == "__main__":
     model = GPT4V()
