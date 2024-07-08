@@ -40,7 +40,7 @@ Then results will be printed and saveed to [`genaibench_results.txt`](./genaiben
 |          blip2          | pairwise |          26.3401          |        26.0065         |          16.9317          |
 |          cogvlm         | pairwise |            TBD            |          0.0           |            TBD            |
 |          gemini         | pairwise |            0.0            |         5.1143         |            TBD            |
-|          gpt4o          | pairwise |          45.5908          |          TBD           |            TBD            |
+|          gpt4o          | pairwise |          45.5908          |        53.5365         |            TBD            |
 |         idefics1        | pairwise |           0.8069          |         5.6583         |           0.1871          |
 |         idefics2        | pairwise |          42.2478          |        27.3123         |           16.464          |
 |       instructblip      | pairwise |            TBD            |        19.8041         |           3.7418          |
@@ -54,6 +54,9 @@ Then results will be printed and saveed to [`genaibench_results.txt`](./genaiben
 |        ottervideo       | pairwise |            0.0            |          0.0           |            0.0            |
 |          qwenVL         | pairwise |          26.6282          |        14.9075         |           2.1515          |
 |        videollava       | pairwise |          37.7522          |        26.6594         |            TBD            |
+
+
+
 
 
 
