@@ -27,8 +27,27 @@ Then results will be printed and saveed to [`genaibench_results.txt`](./genaiben
 
 
 ## TODO
-- [ ] add blip2, instructblip, cogvlm, idefics2, llava, llavanext, minicpm, phi3-vision, vila, gpt4o, gemini results to leaderboard
+- [ ] add phi3-vision, vila results to leaderboard
+- [ ]
 - [ ] phi3-vision is not supported yet, need to add it to the mllm tools.
+
+## To Run
+```bash
+python inference.py --task "image_generation" --model_name "gemini-1.5-flash"
+python inference.py --task "image_edition" --model_name "gemini-1.5-flash"
+python inference.py --task "video_generation" --model_name "gemini-1.5-flash"
+python inference.py --task "video_generation" --model_name "gemini-1.5-pro"
+python inference.py --task "video_generation" --model_name "gpt4o"
+python inference.py --task "image_generation" --model_name "gpt4o-mini"
+python inference.py --task "image_edition" --model_name "gpt4o-mini"
+python inference.py --task "video_generation" --model_name "gpt4o-mini"
+
+python inference.py --task "image_generation" --model_name "instructblip"
+python inference.py --task "video_generation" --model_name "minicpm-V-2.5"
+python inference.py --task "video_generation" --model_name "videollava"
+```
+
+
 
 
 ## Current Leaderboard 
@@ -39,7 +58,7 @@ Then results will be printed and saveed to [`genaibench_results.txt`](./genaiben
 |          random         | pairwise |          25.3602          |        25.8977         |          25.1637          |
 |          blip2          | pairwise |          26.3401          |        26.0065         |          16.9317          |
 |          cogvlm         | pairwise |            TBD            |          0.0           |            TBD            |
-|          gemini         | pairwise |            0.0            |         5.1143         |            TBD            |
+|      gemini-1.5-pro     | pairwise |            0.0            |         5.1143         |            TBD            |
 |          gpt4o          | pairwise |          45.5908          |        53.5365         |            TBD            |
 |         idefics1        | pairwise |           0.8069          |         5.6583         |           0.1871          |
 |         idefics2        | pairwise |          42.2478          |        27.3123         |           16.464          |
@@ -47,14 +66,11 @@ Then results will be printed and saveed to [`genaibench_results.txt`](./genaiben
 |         kosmos2         | pairwise |            0.0            |          0.0           |            0.0            |
 |          llava          | pairwise |          37.0029          |        26.1153         |          30.4022          |
 |        llavanext        | pairwise |          22.6513          |        25.3536         |          21.7025          |
-|    mantis-8b-idefics2   | pairwise |            0.0            |          0.0           |            0.0            |
-| mantis-8b-idefics2_8192 | pairwise |            0.0            |          0.0           |            0.0            |
 |      minicpm-V-2.5      | pairwise |          37.8098          |        25.2448         |            TBD            |
 |        otterimage       | pairwise |            0.0            |          0.0           |            0.0            |
 |        ottervideo       | pairwise |            0.0            |          0.0           |            0.0            |
 |          qwenVL         | pairwise |          26.6282          |        14.9075         |           2.1515          |
 |        videollava       | pairwise |          37.7522          |        26.6594         |            TBD            |
-
 
 
 

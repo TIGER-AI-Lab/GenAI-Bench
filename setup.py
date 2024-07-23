@@ -11,7 +11,7 @@ setup(
     packages=find_packages(),
     url='https://github.com/TIGER-AI-Lab/GenAI-Bench',
     install_requires=[
-        "transformers",
+        "transformers==4.41.0",
         "sentencepiece",
         "torch",
         "Pillow",
@@ -34,6 +34,8 @@ setup(
         "peft",
         "einops",
         "matplotlib",
+        "xformers",
+        "google-generativeai",
     ],
     extras_require={}
 )

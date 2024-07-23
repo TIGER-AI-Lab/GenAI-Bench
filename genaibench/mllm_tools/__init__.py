@@ -115,17 +115,14 @@ def MLLM_Models(model_name:str):
     elif "videollava" in model_name.lower():
         if model_name == "videollava":
             model_id = 'LanguageBind/Video-LLaVA-7B-hf'
-            input_type = "image"
         elif model_name == "videollava-image":
             model_id = 'LanguageBind/Video-LLaVA-7B-hf'
-            input_type = "image"
         elif model_name == "videollava-video":
             model_id = 'LanguageBind/Video-LLaVA-7B-hf'
-            input_type = "video"
         else:
             raise ValueError(f'Invalid model name: {model_name}')
         from .videollava_eval import VideoLlava
-        return partial(VideoLlava, model_path=model_id, input_type=input_type)
+        return partial(VideoLlava, model_path=model_id)
     elif model_name.lower().startswith("gpt4"):
         if model_name == "gpt4v":
             from .gpt4_eval import GPT4V
@@ -133,8 +130,14 @@ def MLLM_Models(model_name:str):
         elif model_name == "gpt4o":
             from .gpt4_eval import GPT4O
             return GPT4O
+        elif model_name == "gpt4o-mini":
+            from .gpt4_eval import GPT4OMini
+            return GPT4OMini
         else:
             raise ValueError(f'Invalid model name: {model_name}')
+    elif model_name.lower().startswith("gpt-4"):
+        from .gpt4_eval import GPT4V
+        return GPT4V(model_path=model_name)
     elif model_name.lower().startswith("gemini"):
         from .gemini_eval import Gemini
         return Gemini

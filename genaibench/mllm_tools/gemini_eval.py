@@ -8,6 +8,7 @@ https://ai.google.dev/gemini-api/docs/get-started/python
 """
 
 import requests
+import time
 from PIL import Image
 from io import BytesIO
 import os
@@ -16,7 +17,7 @@ from urllib.parse import urlparse
 import google.generativeai as genai
 import tempfile
 
-genai.configure(api_key=os.environ["GEMINI_API_KEY"])
+genai.configure(api_key=os.environ["GOOGLE_API_KEY"])
 
 def upload_to_gemini(input, mime_type=None):
     """Uploads the given file or PIL image to Gemini.
@@ -69,13 +70,13 @@ def save_image_from_url(url, base_save_directory='tmp', file_name=None):
 
 class Gemini():
     support_multi_image = True
+    support_video_input = True
     def __init__(self, model_name="gemini-1.5-pro-latest"):
         # Create the model
         # See https://ai.google.dev/api/python/google/generativeai/GenerativeModel
         generation_config = {
-          "temperature": 1,
-          "top_p": 0.95,
-          "top_k": 64,
+          "temperature": 0,
+          "top_p": 1.0,
           "max_output_tokens": 8192,
           "response_mime_type": "text/plain",
         }
@@ -122,49 +123,39 @@ class Gemini():
             ]
             Supports any form of interleaved format of image and text.
         """
-        image_links = [x["content"] for x in inputs if x["type"] == "image"]
+        has_image = any(x["type"] == "image" for x in inputs)
+        has_video = any(x["type"] == "video" for x in inputs)
         text_prompt = "\n".join([x["content"] for x in inputs if x["type"] == "text"])
-        inputs = self.prepare_prompt(image_links, text_prompt)
-        return self.get_parsed_output(inputs)
 
-    def prepare_prompt(self, image_links: List = [], text_prompt: str = ""):
-        if not isinstance(image_links, list):
-            image_links = [image_links]
+        contents = []
+        for item in inputs:
+            if item["type"] == "image":
+              if isinstance(item["content"], str):
+                if item["content"].startswith("http"):
+                  image_file = save_image_from_url(item["content"])
+              elif isinstance(item["content"], Image.Image):
+                image_file = save_image_from_url(item["content"])
+              else:
+                raise ValueError("Unsupported input type. Must be a file path or URL.")
+              image_file = genai.upload_file(path=image_file)
+              image_file = genai.get_file(name=image_file.name)
+              contents.append(image_file)
+            elif item["type"] == "video":
+              if isinstance(item["content"], str):
+                video_file = genai.upload_file(path=item["content"])
+                                # Check whether the file is ready to be used.
+                while video_file.state.name == "PROCESSING":
+                    print('.', end='')
+                    time.sleep(3)
+                    video_file = genai.get_file(video_file.name)
 
-        images_prompt = []
-        for image_link in image_links:
-            if isinstance(image_link, str):
-              image = save_image_from_url(image_link)
-            elif isinstance(image_link, Image.Image):
-              image = image_link
-            else:
-              raise ValueError("Unsupported input type. Must be a file path or PIL Image.")
-            image = upload_to_gemini(image, mime_type="image/jpeg")
-            images_prompt.append(image)
-
-        prompt_content = [images_prompt, text_prompt]
-        return prompt_content
-
-    def get_parsed_output(self, prompt):
-        images_prompt = prompt[0]
-        text_prompt = prompt[1]
-        chat_session = self.model.start_chat(
-          history=[
-            {
-              "role": "user",
-              "parts": images_prompt,
-            },
-          ]
-        )
-        try:
-          response = chat_session.send_message(text_prompt)
-        except:
-          return "Error in sending message to chat session."
-        return self.extract_response(response)
-    
-    def extract_response(self, response):
-        response = response.text
-        return response
+                if video_file.state.name == "FAILED":
+                  raise ValueError(video_file.state.name)
+                contents.append(video_file)
+              else:
+                raise ValueError("Unsupported input type. Must be a file path.")
+        response = self.model.generate_content(contents, request_options={"timeout": 600})
+        return response.text
 
 if __name__ == "__main__":
     model = Gemini()

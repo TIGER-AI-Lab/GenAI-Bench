@@ -67,12 +67,12 @@ class INSTRUCTBLIP_FLANT5():
         if type(image_links) == str:
             image_links = [image_links]
         image = merge_images(image_links)
-        inputs = self.processor(image, text_prompt, return_tensors="pt").to(self.model.device)
+        inputs = self.processor(image, text_prompt, return_tensors="pt", max_length=512, truncation=True).to(self.model.device)
         return inputs
 
     def get_parsed_output(self, inputs):
         generation_output = self.model.generate(**inputs, 
-            do_sample=True,
+            do_sample=False,
             # num_beams=5,
             max_new_tokens=512,
             min_length=1,

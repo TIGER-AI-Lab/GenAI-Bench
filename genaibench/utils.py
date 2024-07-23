@@ -59,7 +59,6 @@ def download_video(url, file_path):
         return file_path
 
 
-
 def process_video_into_frames(video_path, max_num_frames):
     if video_path.startswith("http"):
         video_path = download_video(video_path, video_cache_dir / Path(video_path).name)
@@ -74,3 +73,13 @@ def process_video_into_frames(video_path, max_num_frames):
         
     frames = read_video_pyav(container, indices)
     return frames
+
+def merge_video_into_frames(video_paths, max_num_frames):
+    assert isinstance(video_paths, list), "video_paths must be a list of video paths."
+    frames = []
+    for video_path in video_paths:
+        frames.append(process_video_into_frames(video_path, max_num_frames))
+    # sample the frames to the same length
+    frames = np.concatenate(frames, axis=0)
+    sampled_indices = np.arange(0, frames.shape[0], frames.shape[0] / max_num_frames).astype(int)
+    return frames[sampled_indices]

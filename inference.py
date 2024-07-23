@@ -95,10 +95,11 @@ def run_pairwise_example(model, example, left_input_keys, right_input_keys, inpu
                 "pos": prompt.find(f"<{key}>")
             }
         elif merged_key_types[i] == "video":
-            frames = process_video_into_frames(example[key], inference_configs.get("max_num_frames", 16))
+            frames = process_video_into_frames(example[key], inference_configs.get("max_num_frames", 8))
             multimodal_keys[key] = {
                 "type": "video",
                 "content": frames,
+                "path": example[key],
                 "pos": prompt.find(f"<{key}>")
             }
         else:
@@ -122,7 +123,7 @@ def run_pairwise_example(model, example, left_input_keys, right_input_keys, inpu
             if hasattr(model, "support_video_input") and model.support_video_input:
                 model_inputs.append({
                     "type": "video",
-                    "content": multimodal_["content"]
+                    "content": multimodal_["path"]
                 })
             else:
                 for frame in multimodal_["content"]:

@@ -1,4 +1,5 @@
 """pip3 install -U xformers --index-url https://download.pytorch.org/whl/cu118"""
+"""need transformers<=4.40"""
 import torch
 import requests
 from PIL import Image
@@ -54,18 +55,17 @@ class CogVLM():
         if type(image_links) == str:
             image_links = [image_links]
         merged_image = merge_images(image_links)
-        inputs = self.model.build_conversation_input_ids(self.tokenizer, query=text_prompt, history=[], images=[merged_image])  # chat mode
-        return inputs
-    
-    def get_parsed_output(self, inputs):
+        inputs = self.model.build_conversation_input_ids(self.tokenizer, query=text_prompt, history=[], images=[merged_image], template_version='vqa')   # vqa mode
         inputs = {
             'input_ids': inputs['input_ids'].unsqueeze(0).to('cuda'),
             'token_type_ids': inputs['token_type_ids'].unsqueeze(0).to('cuda'),
             'attention_mask': inputs['attention_mask'].unsqueeze(0).to('cuda'),
-            'images': [[inputs['images'][0].to('cuda').to(torch.bfloat16)]],
+            'images': [[inputs['images'][0].to(self.model.device).to(torch.bfloat16)]],
         }
-        gen_kwargs = {"max_length": 2048, "do_sample": False, 'no_repeat_ngram_size': 3, 'early_stopping': True}
-
+        return inputs
+    
+    def get_parsed_output(self, inputs):
+        gen_kwargs = {"max_length": 2048, "do_sample": False}
         with torch.no_grad():
             outputs = self.model.generate(**inputs, **gen_kwargs)
             outputs = outputs[:, inputs['input_ids'].shape[1]:]

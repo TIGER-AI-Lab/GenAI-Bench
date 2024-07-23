@@ -107,6 +107,12 @@ class GPT4O(GPT4V):
     merged_image_files = []
     def __init__(self, model_path:str="gpt-4o-2024-05-13") -> None:
         super().__init__(model_path=model_path)
+        
+class GPT4OMini(GPT4V):
+    support_multi_image = True
+    merged_image_files = []
+    def __init__(self, model_path:str="gpt-4o-mini-2024-07-18") -> None:
+        super().__init__(model_path=model_path)
 
 if __name__ == "__main__":
     model = GPT4V()

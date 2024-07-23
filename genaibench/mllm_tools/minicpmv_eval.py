@@ -8,9 +8,11 @@ from typing import List
 from transformers import AutoModel, AutoTokenizer
 from transformers.image_utils import load_image
 from transformers.utils import is_flash_attn_2_available
+from .mllm_utils import merge_images
 
 class MiniCPMV():
     support_multi_image = True
+    max_input_images=4
     def __init__(self, model_path:str="openbmb/MiniCPM-Llama3-V-2_5") -> None:
         """Llava model wrapper
 
@@ -46,23 +48,35 @@ class MiniCPMV():
         """
         if self.support_multi_image:
             content = []
-            for _input in inputs:
+            num_images = [x["type"] for x in inputs].count("image")
+            
+            idx = 0
+            while idx < len(inputs):
+                _input = inputs[idx]
                 if _input["type"] == "image":
-                    if isinstance(_input["content"], str):
-                        image = load_image(_input["content"])
-                    elif isinstance(_input["content"], Image.Image):
-                        image = _input["content"]
+                    images = []
+                    while inputs[idx]["type"] == "image":
+                        if isinstance(inputs[idx]["content"], str):
+                            image = load_image(inputs[idx]["content"])
+                        elif isinstance(inputs[idx]["content"], Image.Image):
+                            image = inputs[idx]["content"]
+                        else:
+                            raise ValueError("Invalid image input", inputs[idx]["content"], "should be str or PIL.Image.Image")
+                        images.append(image)
+                        idx += 1
+                    if len(images) > 2:
+                        merged_image = merge_images(images)
+                        content.append(merged_image)
                     else:
-                        raise ValueError("Invalid image input", _input["content"], "should be str or PIL.Image.Image")
-                    content.append(image)
+                        content += images
                 elif _input["type"] == "text":
                     content.append(_input["content"])
+                    idx += 1
                 else:
                     raise ValueError("Invalid input type", _input["type"])                    
             
             messages = [{"role": "user", "content": content}]
             
-            print(messages)
             res = self.model.chat(
                 image=None,
                 msgs=messages,
