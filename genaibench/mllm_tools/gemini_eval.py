@@ -9,6 +9,7 @@ https://ai.google.dev/gemini-api/docs/get-started/python
 
 import requests
 import time
+import pathlib
 from PIL import Image
 from io import BytesIO
 import os
@@ -68,6 +69,11 @@ def save_image_from_url(url, base_save_directory='tmp', file_name=None):
     else:
         raise Exception(f"Failed to retrieve image from URL. Status code: {response.status_code}")
 
+def save_image_to_tmp(image):
+    with tempfile.NamedTemporaryFile(suffix=".jpg", delete=False) as tmp_file:
+        image.save(tmp_file, format="JPEG")
+        tmp_file_path = tmp_file.name
+    return tmp_file_path
 class Gemini():
     support_multi_image = True
     support_video_input = True
@@ -134,14 +140,14 @@ class Gemini():
                 if item["content"].startswith("http"):
                   image_file = save_image_from_url(item["content"])
               elif isinstance(item["content"], Image.Image):
-                image_file = save_image_from_url(item["content"])
+                image_file = save_image_to_tmp(item["content"])
               else:
                 raise ValueError("Unsupported input type. Must be a file path or URL.")
               image_file = genai.upload_file(path=image_file)
               image_file = genai.get_file(name=image_file.name)
               contents.append(image_file)
             elif item["type"] == "video":
-              if isinstance(item["content"], str):
+              if isinstance(item["content"], str) or isinstance(item["content"], pathlib.Path):
                 video_file = genai.upload_file(path=item["content"])
                                 # Check whether the file is ready to be used.
                 while video_file.state.name == "PROCESSING":
@@ -153,7 +159,9 @@ class Gemini():
                   raise ValueError(video_file.state.name)
                 contents.append(video_file)
               else:
-                raise ValueError("Unsupported input type. Must be a file path.")
+                raise ValueError("Unsupported input type. Must be a file path. but get {}".format(type(item["content"])))
+            elif item["type"] == "text":
+              contents.append(item["content"])
         response = self.model.generate_content(contents, request_options={"timeout": 600})
         return response.text
 

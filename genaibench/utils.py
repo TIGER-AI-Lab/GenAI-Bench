@@ -59,7 +59,7 @@ def download_video(url, file_path):
         return file_path
 
 
-def process_video_into_frames(video_path, max_num_frames):
+def process_video_into_frames(video_path, max_num_frames, return_path=False):
     if video_path.startswith("http"):
         video_path = download_video(video_path, video_cache_dir / Path(video_path).name)
     else:
@@ -72,7 +72,10 @@ def process_video_into_frames(video_path, max_num_frames):
         indices = np.arange(num_frames)
         
     frames = read_video_pyav(container, indices)
-    return frames
+    if return_path:
+        return frames, video_path
+    else:
+        return frames
 
 def merge_video_into_frames(video_paths, max_num_frames):
     assert isinstance(video_paths, list), "video_paths must be a list of video paths."

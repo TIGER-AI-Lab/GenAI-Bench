@@ -14,6 +14,8 @@ from genaibench.utils import (
 )
 from pathlib import Path
 
+DEFAULT_MAX_VIDEO_FRAMES = 8
+
 def run_example(model, example, input_keys, input_types, prompt_template, inference_configs):
     prompt = prompt_template
     model_inputs = []
@@ -45,11 +47,12 @@ def run_example(model, example, input_keys, input_types, prompt_template, infere
                 "type": "text",
                 "content": splitted_prompt[0]
             })
-            frames = process_video_into_frames(example[key], inference_configs.get("max_num_frames", 16))
+            frames, path = process_video_into_frames(example[key], inference_configs.get("max_num_frames", DEFAULT_MAX_VIDEO_FRAMES), return_path=True)
             if hasattr(model, "support_video_input") and model.support_video_input:
                 model_inputs.append({
                     "type": "video",
-                    "content": frames
+                    "content": frames,
+                    "path": path
                 })
             else:
                 for frame in frames:
@@ -95,11 +98,11 @@ def run_pairwise_example(model, example, left_input_keys, right_input_keys, inpu
                 "pos": prompt.find(f"<{key}>")
             }
         elif merged_key_types[i] == "video":
-            frames = process_video_into_frames(example[key], inference_configs.get("max_num_frames", 8))
+            frames, path = process_video_into_frames(example[key], inference_configs.get("max_num_frames", DEFAULT_MAX_VIDEO_FRAMES), return_path=True)
             multimodal_keys[key] = {
                 "type": "video",
                 "content": frames,
-                "path": example[key],
+                "path": path,
                 "pos": prompt.find(f"<{key}>")
             }
         else:
