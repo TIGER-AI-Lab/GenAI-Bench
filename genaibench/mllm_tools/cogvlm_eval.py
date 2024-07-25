@@ -48,7 +48,6 @@ class CogVLM():
             raise NotImplementedError
         else:
             text_prompt = "\n".join([x["content"] for x in inputs if x["type"] == "text"])
-            print(image_links, text_prompt)
             inputs = self.prepare_prompt(image_links, text_prompt)
             return self.get_parsed_output(inputs)
     
@@ -71,7 +70,6 @@ class CogVLM():
             outputs = self.model.generate(**inputs, **gen_kwargs)
             outputs = outputs[:, inputs['input_ids'].shape[1]:]
             output = self.tokenizer.decode(outputs[0], skip_special_tokens=True)
-        print(output)
         return output
 
 if __name__ == "__main__":
