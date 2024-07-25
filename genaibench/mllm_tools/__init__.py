@@ -135,12 +135,13 @@ def MLLM_Models(model_name:str):
             return GPT4OMini
         else:
             raise ValueError(f'Invalid model name: {model_name}')
-    elif model_name.lower().startswith("gpt-4"):
-        from .gpt4_eval import GPT4V
-        return GPT4V(model_path=model_name)
     elif model_name.lower().startswith("gemini"):
-        from .gemini_eval import Gemini
-        return Gemini
+        if model_name == "gemini-1.5-pro":
+            from .gemini_eval import Gemini
+            return Gemini(model_name="gemini-1.5-pro-latest")
+        elif model_name == "gemini-1.5-flash":
+            from .gemini_eval import Gemini
+            return Gemini(model_name="gemini-1.5-flash-latest")
     elif model_name.lower().startswith("mantis"):
         if "fuyu" in model_name.lower():
             return partial(get_mfuyu, model_name=model_name)
