@@ -50,8 +50,6 @@ Then results will be printed and saveed to [`genaibench_results.txt`](./genaiben
 |         kosmos2         | pairwise |            0.0            |          0.0           |            0.0            |
 |          llava          | pairwise |          37.0029          |        26.1153         |          30.4022          |
 |        llavanext        | pairwise |          22.6513          |        25.3536         |          21.7025          |
-|    mantis-8b-idefics2   | pairwise |            0.0            |          0.0           |            0.0            |
-| mantis-8b-idefics2_8192 | pairwise |            0.0            |          0.0           |            0.0            |
 |      minicpm-V-2.5      | pairwise |          37.8098          |        25.2448         |           6.5482          |
 |        otterimage       | pairwise |            0.0            |          0.0           |            0.0            |
 |        ottervideo       | pairwise |            0.0            |          0.0           |            0.0            |
