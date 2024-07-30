@@ -83,7 +83,7 @@ class Gemini():
         generation_config = {
           "temperature": 0,
           "top_p": 1.0,
-          "max_output_tokens": 8192,
+          "max_output_tokens": 16384,
           "response_mime_type": "text/plain",
         }
         safety_settings = [
@@ -163,8 +163,12 @@ class Gemini():
             elif item["type"] == "text":
               contents.append(item["content"])
         response = self.model.generate_content(contents, request_options={"timeout": 600})
-        return response.text
-
+        try:
+          return response.text
+        except Exception as e:
+          print(e)
+          print(response.prompt_feedback)
+          return str(response.prompt_feedback)
 if __name__ == "__main__":
     model = Gemini()
     # difference

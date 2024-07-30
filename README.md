@@ -28,35 +28,22 @@ Then results will be printed and saveed to [`genaibench_results.txt`](./genaiben
 
 ## TODO
 - [ ] add phi3-vision, vila results to leaderboard
-- [ ]
 - [ ] phi3-vision is not supported yet, need to add it to the mllm tools.
-
-## To Run
-```bash
-python inference.py --task "image_generation" --model_name "gemini-1.5-flash"
-python inference.py --task "image_edition" --model_name "gemini-1.5-flash"
-python inference.py --task "video_generation" --model_name "gemini-1.5-flash"
-python inference.py --task "video_generation" --model_name "gemini-1.5-pro"
-python inference.py --task "video_generation" --model_name "gpt4o"
-python inference.py --task "image_generation" --model_name "gpt4o-mini"
-python inference.py --task "image_edition" --model_name "gpt4o-mini"
-python inference.py --task "video_generation" --model_name "gpt4o-mini"
-```
-
+- [ ] Gemini-1.5-flash
+- [ ] GPT4o-mini
 
 
 
 ## Current Leaderboard 
-(Updated on 2024-07-24, copied from [`genaibench_results.txt`](./genaibench_results.txt))
+(Updated on 2024-07-29, copied from [`genaibench_results.txt`](./genaibench_results.txt))
 
 |          Model          | Template | Image Generation Accuracy | Image Editing Accuracy | Video Generation Accuracy |
 | :---------------------: | :------: | :-----------------------: | :--------------------: | :-----------------------: |
 |          random         | pairwise |          25.3602          |        25.8977         |          25.1637          |
 |          blip2          | pairwise |          26.3401          |        26.0065         |          16.9317          |
-|          cogvlm         | pairwise |            TBD            |          0.0           |            TBD            |
-|          gemini         | pairwise |            0.0            |          TBD           |            TBD            |
-|      gemini-1.5-pro     | pairwise |            TBD            |         5.1143         |            TBD            |
-|          gpt4o          | pairwise |          45.5908          |        53.5365         |            TBD            |
+|          cogvlm         | pairwise |          29.3372          |          0.0           |          24.6024          |
+|      gemini-1.5-pro     | pairwise |          44.6686          |        55.9304         |          46.2114          |
+|          gpt4o          | pairwise |          45.5908          |        53.5365         |          48.4565          |
 |         idefics1        | pairwise |           0.8069          |         5.6583         |           0.1871          |
 |         idefics2        | pairwise |          42.2478          |        27.3123         |           16.464          |
 |       instructblip      | pairwise |           3.1124          |        19.8041         |           3.7418          |
@@ -70,6 +57,7 @@ python inference.py --task "video_generation" --model_name "gpt4o-mini"
 |        ottervideo       | pairwise |            0.0            |          0.0           |            0.0            |
 |          qwenVL         | pairwise |          26.6282          |        14.9075         |           2.1515          |
 |        videollava       | pairwise |          37.7522          |        26.6594         |            0.0            |
+
 
 
 

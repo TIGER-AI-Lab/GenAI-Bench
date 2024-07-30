@@ -65,7 +65,7 @@ class CogVLM():
         return inputs
     
     def get_parsed_output(self, inputs):
-        gen_kwargs = {"max_length": 2048, "do_sample": False}
+        gen_kwargs = {"max_length": 4096, "do_sample": False}
         with torch.no_grad():
             outputs = self.model.generate(**inputs, **gen_kwargs)
             outputs = outputs[:, inputs['input_ids'].shape[1]:]

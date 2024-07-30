@@ -3,10 +3,9 @@
 | :---------------------: | :------: | :-----------------------: | :--------------------: | :-----------------------: |
 |          random         | pairwise |          25.3602          |        25.8977         |          25.1637          |
 |          blip2          | pairwise |          26.3401          |        26.0065         |          16.9317          |
-|          cogvlm         | pairwise |            TBD            |          0.0           |            TBD            |
-|          gemini         | pairwise |            0.0            |          TBD           |            TBD            |
-|      gemini-1.5-pro     | pairwise |            TBD            |         5.1143         |            TBD            |
-|          gpt4o          | pairwise |          45.5908          |        53.5365         |            TBD            |
+|          cogvlm         | pairwise |          29.3372          |          0.0           |          24.6024          |
+|      gemini-1.5-pro     | pairwise |          44.6686          |        55.9304         |          46.2114          |
+|          gpt4o          | pairwise |          45.5908          |        53.5365         |          48.4565          |
 |         idefics1        | pairwise |           0.8069          |         5.6583         |           0.1871          |
 |         idefics2        | pairwise |          42.2478          |        27.3123         |           16.464          |
 |       instructblip      | pairwise |           3.1124          |        19.8041         |           3.7418          |
