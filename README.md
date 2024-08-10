@@ -29,7 +29,7 @@ The leaderboard is updated every time a new model is evaluated.
 pip install -e .
 ```
 
-## Evaluate a new model
+## Evaluate a model
 
 - run inference of a model on a task
 ```bash
