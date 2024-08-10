@@ -36,7 +36,7 @@ def main(
         table = pt.PrettyTable()
         table.field_names = ["Model", "Template", "Accuracy"]
         for result in all_results[task]:
-            table.add_row([result["model"], result["template"], round(result["acc"]*100, 4)])
+            table.add_row([result["model"], result["template"], round(result["acc"]*100, 2)])
         table.set_style(pt.DEFAULT)
         task_str = task.replace("_", " ").title()
         print("### " + task_str)
@@ -75,14 +75,20 @@ def main_merged(results_dir="./results", save_file="genaibench_results.txt"):
     # Fill the merged_results dictionary with actual results
     for task in all_results:
         for result in all_results[task]:
-            merged_results[result["model"]][result["template"]][task] = round(result["acc"] * 100, 4)
+            merged_results[result["model"]][result["template"]][task] = round(result["acc"] * 100, 2)
+            
+    # compute the average accuracy
+    for model in merged_results:
+        for template in merged_results[model]:
+            merged_results[model][template]["average"] = round(np.mean([merged_results[model][template][task] for task in all_results]), 2)
     
-    # Sort models, putting 'random' at the top
-    sorted_models = sorted(all_models, key=lambda x: (x != 'random', x))
+    # Sort models, putting 'random' at the top, and sort according to the average accuracy
+    average_acc_per_model = {model: np.mean([merged_results[model][template]["average"] for template in all_templates]) for model in all_models}
+    sorted_models = sorted(all_models, key=lambda x: (x != 'random', -average_acc_per_model[x]))
     
     # Create the merged table
     table = pt.PrettyTable()
-    table.field_names = ["Model", "Template", "Image Generation Accuracy", "Image Editing Accuracy", "Video Generation Accuracy"]
+    table.field_names = ["Model", "Template", "Image Generation", "Image Editing", "Video Generation", "Average"]
     
     for model in sorted_models:
         for template in merged_results[model]:
@@ -92,6 +98,7 @@ def main_merged(results_dir="./results", save_file="genaibench_results.txt"):
                 merged_results[model][template]["image_generation"],
                 merged_results[model][template]["image_edition"],
                 merged_results[model][template]["video_generation"],
+                merged_results[model][template]["average"]
             ])
     
     table.set_style(pt.DEFAULT)

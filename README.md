@@ -35,33 +35,25 @@ Then results will be printed and saveed to [`genaibench_results.txt`](./genaiben
 
 
 ## Current Leaderboard 
-(Updated on 2024-07-29, copied from [`genaibench_results.txt`](./genaibench_results.txt))
-
-|          Model          | Template | Image Generation Accuracy | Image Editing Accuracy | Video Generation Accuracy |
-| :---------------------: | :------: | :-----------------------: | :--------------------: | :-----------------------: |
-|          random         | pairwise |          25.3602          |        25.8977         |          25.1637          |
-|          blip2          | pairwise |          26.3401          |        26.0065         |          16.9317          |
-|          cogvlm         | pairwise |          29.3372          |          0.0           |          24.6024          |
-|      gemini-1.5-pro     | pairwise |          44.6686          |        55.9304         |          46.2114          |
-|          gpt4o          | pairwise |          45.5908          |        53.5365         |          48.4565          |
-|         idefics1        | pairwise |           0.8069          |         5.6583         |           0.1871          |
-|         idefics2        | pairwise |          42.2478          |        27.3123         |           16.464          |
-|       instructblip      | pairwise |           3.1124          |        19.8041         |           3.7418          |
-|         kosmos2         | pairwise |            0.0            |          0.0           |            0.0            |
-|          llava          | pairwise |          37.0029          |        26.1153         |          30.4022          |
-|        llavanext        | pairwise |          22.6513          |        25.3536         |          21.7025          |
-|      minicpm-V-2.5      | pairwise |          37.8098          |        25.2448         |           6.5482          |
-|        otterimage       | pairwise |            0.0            |          0.0           |            0.0            |
-|        ottervideo       | pairwise |            0.0            |          0.0           |            0.0            |
-|          qwenVL         | pairwise |          26.6282          |        14.9075         |           2.1515          |
-|        videollava       | pairwise |          37.7522          |        26.6594         |            0.0            |
-
-
-
-
-
-
-
+(Updated on 2024-08-09, copied from [`genaibench_results.txt`](./genaibench_results.txt))
+|          Model          | Template | Image Generation | Image Editing | Video Generation | Average |
+| :---------------------: | :------: | :--------------: | :-----------: | :--------------: | :-----: |
+|          random         | pairwise |      25.36       |      25.9     |      25.16       |  25.47  |
+|          gpt4o          | pairwise |      45.59       |     53.54     |      48.46       |   49.2  |
+|      gemini-1.5-pro     | pairwise |      44.67       |     55.93     |      46.21       |  48.94  |
+|          llava          | pairwise |       37.0       |     26.12     |       30.4       |  31.17  |
+|         idefics2        | pairwise |      42.25       |     27.31     |      16.46       |  28.67  |
+|        llavanext        | pairwise |      22.65       |     25.35     |       21.7       |  23.23  |
+|      minicpm-V-2.5      | pairwise |      37.81       |     25.24     |       6.55       |   23.2  |
+|          blip2          | pairwise |      26.34       |     26.01     |      16.93       |  23.09  |
+|        videollava       | pairwise |      37.75       |     26.66     |       0.0        |  21.47  |
+|          cogvlm         | pairwise |      29.34       |      0.0      |       24.6       |  17.98  |
+|          qwenVL         | pairwise |      26.63       |     14.91     |       2.15       |  14.56  |
+|       instructblip      | pairwise |       3.11       |      19.8     |       3.74       |   8.88  |
+|         idefics1        | pairwise |       0.81       |      5.66     |       0.19       |   2.22  |
+|        ottervideo       | pairwise |       0.0        |      0.0      |       0.0        |   0.0   |
+|        otterimage       | pairwise |       0.0        |      0.0      |       0.0        |   0.0   |
+|         kosmos2         | pairwise |       0.0        |      0.0      |       0.0        |   0.0   |
 
 
 
