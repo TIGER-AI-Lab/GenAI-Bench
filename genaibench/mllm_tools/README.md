@@ -6,15 +6,16 @@
 
 - Please check `__init__.py` for a full list of supportted models.
 
-
 ## Example of adding a new model
-
+### 1. Add a new model to the evaluation pipeline
 - in `{model_name}_eval.py`:
 ```python
 
 class NewModel():
     # support_multi_image: 'merge' images for False, and use custom image 'sequence' format for True
-    support_multi_image = True 
+    support_multi_image = True
+    support_video_input = False # if True, 
+
     def __init__(self, model_id:str="HuggingFaceM4/idefics2-8b") -> None:
         """
 
@@ -61,72 +62,27 @@ class NewModel():
 
 ```
 
-- in `__init__.py`:
+Major fields to take care of:
+- If your model supports multiple images, set `support_multi_image` to `True`. Otherwise, set it to `False`. Then implement the `__call__` function accordingly.
+- By default, `support_video_input` is set to `False`. And all the videos are first converted to image frames and then processed like multiple images. 
+If your model supports video input, set it to `True`. Then the inputs will have `video` type inputs where the content is the video's local path. You should write your custom code to process the video input, and feed it to the model.
+- The `__init__` function should load the model and processor. The model
+- The `__call__` function should process the inputs and return the generated text.
+- If possible, please set the `generation_kwargs` to be greedy decoding for better reproducibility. 
+
+
+### 2. Register the new model in `__init__.py`
 ```python
 MLLM_LIST = [..., "NewModel"]
 ...
 def MLLM_Models(model_name:str):
     if ...:
         ...
+    # start of your registration #
     elif model_name == "NewModel":
         from .new_model_eval import NewModel
         return NewModel
+    # end of your registration #
     else:
         raise NotImplementedError
-```
-
-
-## Special requirements for evaluating some models
-Due to the bad compatibility of some models, we need to install some additional packages, or use a brand new environment to run the evaluation code. We list their installation requirements below:
-(note, assume you are in the same directory as this README.md, which is `mantis/mllm_tools/`)
-
-### [VILA](https://github.com/Efficient-Large-Model/VILA)
-```bash
-mkdir -p model_utils && cd model_utils
-git clone https://github.com/Efficient-Large-Model/VILA.git
-
-cd VILA
-conda create -n vila python=3.10
-conda activate vila
-
-pip install --upgrade pip  # enable PEP 660 support
-wget https://github.com/Dao-AILab/flash-attention/releases/download/v2.4.2/flash_attn-2.4.2+cu118torch2.0cxx11abiFALSE-cp310-cp310-linux_x86_64.whl
-pip install flash_attn-2.4.2+cu118torch2.0cxx11abiFALSE-cp310-cp310-linux_x86_64.whl
-pip install -e .
-pip install -e ".[train]"
-
-site_pkg_path=$(python -c 'import site; print(site.getsitepackages()[0])')
-cp -rv ./llava/train/transformers_replace/* $site_pkg_path/transformers/
-cd ../../
-
-# then install mantis for eval, in the root directory of the repo
-cd ../../
-pip install -e ".[eval]"
-```
-
-After that, you need to run all other evaluation scripts in the `vila` environment.
-
-### [Otter](https://github.com/Luodian/Otter)
-```bash
-mkdir -p model_utils && cd model_utils && git clone https://github.com/Luodian/Otter.git
-```
-
-Then you can test running by
-```bash
-python otterimage_eval.py
-python ottervideo_eval.py
-```
-
-### [VideoLLaVA]
-```bash
-mkdir -p model_utils && cd model_utils && git clone https://github.com/PKU-YuanGroup/Video-LLaVA.git
-
-cd Video-LLaVA
-conda create -n videollava python=3.9
-pip install -e .
-pip install opencv-python decord pythonvideo
-
-# then install mantis for eval, in the root directory of the repo
-cd ../../
-pip install -e ".[eval]"
 ```
