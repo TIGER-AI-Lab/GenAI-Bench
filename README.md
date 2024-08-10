@@ -29,8 +29,7 @@ Then results will be printed and saveed to [`genaibench_results.txt`](./genaiben
 ## TODO
 - [ ] add phi3-vision, vila results to leaderboard
 - [ ] phi3-vision is not supported yet, need to add it to the mllm tools.
-- [ ] Gemini-1.5-flash
-- [ ] GPT4o-mini
+- [ ] add claude
 
 
 
