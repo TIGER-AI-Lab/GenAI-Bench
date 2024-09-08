@@ -187,7 +187,7 @@ def main(
         model = MLLM_Models(model_name)()
     else:
         model = None
-    dataset = datasets.load_dataset(genaibench, task, split='train') # the train split should be the test split we use. it's a bug in the dataset.
+    dataset = datasets.load_dataset(genaibench, task, split='test_v1') # we use the test_v1 split as the genai-bench v1 for now
     
     if results_dir is None:
         results_dir = Path(__file__).parent / "results"
