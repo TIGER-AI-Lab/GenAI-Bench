@@ -58,7 +58,7 @@ If you want to evaluate your model on GenAI-Bench, you can follow the steps belo
 3. Run the evaluation script and update the results in the leaderboard in the README.
 4. Create a pull request to this repository.
 
-## Current Leaderboard 
+## Current Leaderboard (v1 split)
 (Updated on 2024-08-09, copied from [`genaibench_results.txt`](./genaibench_results.txt))
 |          Model          | Template | Image Generation | Image Editing | Video Generation | Average |
 | :---------------------: | :------: | :--------------: | :-----------: | :--------------: | :-----: |
